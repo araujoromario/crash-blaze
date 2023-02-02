@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sinais Crash</title>
+  <link rel="shortcut icon" href="imagem/favicon.ico" type="image/x-icon">
+</head>
+<style>
+  .selected {
+    background-color: lightblue;
+  }
+
+  h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 50px;
+    text-align: center;
+  }
+  ul {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    list-style-type: none;
+    font-size: 50px;
+  }
+
+  p {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 50px ;
+  }
+
+  body {
+    background-color: black;
+    color: white;
+    font-weight:bolder;
+  }
+
+  script {
+    font-size: 50px;
+  }
+  
+</style>
+<body>
+
+  <h1>Lista de Crash 2x até G1</h1>
+  <p id="horario-atual"></p>
+
+  <script>
+    function mostrarHorarioAtual() {
+      var data = new Date();
+      var horarioAtual = data.toLocaleTimeString();
+      document.getElementById("horario-atual").innerHTML = "Horário atual: " + horarioAtual;
+    }
+    
+    mostrarHorarioAtual();
+    setInterval(mostrarHorarioAtual, 1000);
+  </script>
+
+  <ul id="minute-list"></ul>
+  
+  <script>
+    const minuteList = document.getElementById("minute-list");
+    const randomSelectButton = document.getElementById("random-select-button");
+    
+    const currentTime = new Date();
+    const currentHour = currentTime.getHours();
+    const currentMinute = currentTime.getMinutes();
+  
+    for (let hour = 12; hour < 13; hour++) {
+      for (let minute = 0; minute < 60; minute++) {
+        const time = `${hour}:${minute < 10 ? "0" + minute : minute}`;
+        if (hour === currentHour && minute < currentMinute) {
+          continue;
+        }
+        const item = document.createElement("li");
+        item.innerHTML = `
+          <input type="checkbox" id="${time}-check" name="selected-time" value="${time}">
+          <label for="${time}-check">${time}</label>
+          <select id="${time}-select" size="1">
+            <option value="2x🧙‍♂️">2x🧙‍♂️</option>
+            <option value="✅">✅</option>
+            <option value="❌">❌</option>
+            <option value="⚠️">⚠️</option>
+          </select>
+        `;
+        minuteList.appendChild(item);
+      }
+    }
+  
+    randomSelectButton.addEventListener("click", function() {
+      minuteList.querySelectorAll("input[name='selected-time']:checked").forEach(function(selectedTime) {
+        const selectedEmoji = document.getElementById(`${selectedTime.value}-select`);
+        selectedEmoji.selectedIndex = Math.floor(Math.random() * selectedEmoji.options.length);
+      });
+    });
+  </script>
+  
+</body>
+</html>
