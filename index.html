@@ -11,41 +11,34 @@
   .selected {
     background-color: lightblue;
   }
+h1 {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 50px;
+text-align: center;
+}
+ul {
+font-family: Arial, Helvetica, sans-serif;
+text-align: center;
+list-style-type: none;
 
-  h1 {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 50px;
-    text-align: center;
-  }
-  ul {
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-    list-style-type: none;
-    font-size: 50px;
-  }
+}
 
-  p {
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-    font-size: 50px ;
-  }
+p {
+font-family: Arial, Helvetica, sans-serif;
+text-align: center;
+font-size: 50px ;
+}
 
-  body {
-    background-color: black;
-    color: white;
-    font-weight:bolder;
-  }
+body {
+background-color:cornflowerblue;
+color: white;
+font-weight:bolder;
+}
 
-  script {
-    font-size: 50px;
-  }
-  
 </style>
 <body>
-
-  <h1>Lista de Crash 2x até G1</h1>
+  <h1>Lista de Sinais de Crash</h1>
   <p id="horario-atual"></p>
-
   <script>
     function mostrarHorarioAtual() {
       var data = new Date();
@@ -56,23 +49,20 @@
     mostrarHorarioAtual();
     setInterval(mostrarHorarioAtual, 1000);
   </script>
-
   <ul id="minute-list"></ul>
-  
   <script>
     const minuteList = document.getElementById("minute-list");
-    const randomSelectButton = document.getElementById("random-select-button");
-    
+
     const currentTime = new Date();
     const currentHour = currentTime.getHours();
     const currentMinute = currentTime.getMinutes();
   
-    for (let hour = 12; hour < 13; hour++) {
+    for (let hour = currentHour; hour === currentHour; hour++) {
       for (let minute = 0; minute < 60; minute++) {
-        const time = `${hour}:${minute < 10 ? "0" + minute : minute}`;
-        if (hour === currentHour && minute < currentMinute) {
+        if (minute < currentMinute) {
           continue;
         }
+        const time = `${hour}:${minute < 10 ? "0" + minute : minute}`;
         const item = document.createElement("li");
         item.innerHTML = `
           <input type="checkbox" id="${time}-check" name="selected-time" value="${time}">
@@ -82,7 +72,7 @@
             <option value="✅">✅</option>
             <option value="❌">❌</option>
             <option value="⚠️">⚠️</option>
-          </select>
+        </select>
         `;
         minuteList.appendChild(item);
       }
